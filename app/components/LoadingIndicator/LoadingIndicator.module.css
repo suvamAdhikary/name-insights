@@ -1,0 +1,43 @@
+.loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    width: 50vh;
+    border-radius: 8px;
+    gap: 1.5rem;
+}
+
+.spinner {
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    border: 2rem solid rgba(0, 0, 0, 0.1);
+    border-top-color: #007bff;
+    animation: pulse 1s infinite ease-in-out;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
