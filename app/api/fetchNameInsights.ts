@@ -1,10 +1,10 @@
 import axios from "axios";
-import { Country } from "../interfaces/common";
+import { ICountry } from "../interfaces/common";
 
 interface NameInsights {
   age: number | null;
   gender: string | null;
-  country: Country[] | null;
+  country: ICountry[] | null;
 }
 
 const fetchNameInsights = async (name: string): Promise<NameInsights> => {
@@ -34,9 +34,9 @@ const fetchNameInsights = async (name: string): Promise<NameInsights> => {
     const country = countryResponse.data.country;
 
     return { age, gender, country };
-  } catch (error) {
+  } catch (error:any) {
     console.error("Error fetching name insights:", error);
-    return { age: null, gender: null, country: null };
+    throw new Error(error?.response?.data?.error);
   }
 };
 

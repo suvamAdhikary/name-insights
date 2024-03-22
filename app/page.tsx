@@ -1,24 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import InputForm from "./components/InputForm";
 import ResultDisplay from "./components/ResultDisplay";
 import fetchNameInsights from "./api/fetchNameInsights";
 import withLoadingAndError from "./hoc/WithLoadingAndError";
-import { Country } from "./interfaces/common";
+import { ICountry, ILoadingAndErrorProps } from "./interfaces/common";
+import Skeleton from "./hoc/Skeleton";
+import LoadingIndicator from "./components/LoadingIndicator";
+import ErrorIndicator from "./components/ErrorIndicator";
 
-const HomePage: React.FC = () => {
+const HomePage: FC<ILoadingAndErrorProps> = ({
+  error,
+  loading,
+  handleLoading,
+  handleError,
+}) => {
   const [name, setName] = useState<string>("");
   const [age, setAge] = useState<number | null>(null);
   const [gender, setGender] = useState<string | null>(null);
-  const [country, setCountry] = useState<Country[] | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<Error | null>(null);
+  const [country, setCountry] = useState<ICountry[] | null>(null);
 
   const handleSubmit = async (name: string) => {
-    // Change handleSubmit signature
-    setLoading(true);
-    setError(null);
+    handleLoading(true);
+    handleError(null);
 
     try {
       const { age, gender, country } = await fetchNameInsights(name);
@@ -26,33 +31,35 @@ const HomePage: React.FC = () => {
       setGender(gender);
       setCountry(country);
     } catch (err: any) {
-      setError(err.message);
+      handleError(err);
     } finally {
-      setLoading(false);
+      handleLoading(false);
     }
-  };
-
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
   };
 
   const handleReset = () => {
     setName("");
-    setAge(age);
-    setGender(gender);
-    setCountry(country);
+    setAge(null);
+    setGender(null);
+    setCountry(null);
   };
 
   return (
-    <div>
-      <InputForm name={name} setName={setName} onSubmit={handleSubmit} />
-      <ResultDisplay
-        age={age}
-        gender={gender}
-        country={country}
-        handleReset={handleReset}
-      />
-    </div>
+    <Skeleton>
+      {loading && <LoadingIndicator />}
+      {error && <ErrorIndicator error={error} />}
+      {!loading && !error && (
+        <>
+          <InputForm name={name} setName={setName} onSubmit={handleSubmit} />
+          <ResultDisplay
+            age={age}
+            gender={gender}
+            country={country}
+            handleReset={handleReset}
+          />
+        </>
+      )}
+    </Skeleton>
   );
 };
 

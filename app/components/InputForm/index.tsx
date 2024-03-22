@@ -22,10 +22,10 @@ const InputForm: FC<InputFormProps> = ({ onSubmit, name, setName }) => {
   const validateName = useMemo(() => {
     const nameRegex = /^[a-zA-Z\s]+$/;
     return (value: string) => {
-      if (!nameRegex.test(value)) {
+      if (value && !nameRegex.test(value)) {
         return "Name must contain only alphabets and spaces.";
       }
-      if (value.trim().length < 3) {
+      if (value && value.length < 3) {
         return "Name must be at least 3 characters long.";
       }
       return null;
@@ -75,7 +75,7 @@ const InputForm: FC<InputFormProps> = ({ onSubmit, name, setName }) => {
         value={name}
         onChange={handleNameChange}
       />
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      <p className={styles.error}>{error && error}</p>
       <button type="submit" className={styles.button}>
         Get Insights
       </button>
