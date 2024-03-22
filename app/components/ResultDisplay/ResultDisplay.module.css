@@ -1,0 +1,86 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.message {
+    font-size: 1rem;
+    color: #666;
+}
+
+.results {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.result {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.label {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.value {
+    color: #333;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+.tryAgainButton,
+.clearButton {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.tryAgainButton {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.tryAgainButton:hover {
+    opacity: 0.9;
+}
+
+.tryAgainButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #007bff;
+}
+
+.clearButton {
+    background-color: #34d399;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.clearButton:hover {
+    background-color: #22c9b5;
+}
+
+.clearButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #34d399;
+}
