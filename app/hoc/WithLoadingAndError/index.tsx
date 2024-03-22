@@ -1,9 +1,5 @@
+import { ILoadingAndErrorProps } from "@/app/interfaces/common";
 import React, { useState } from "react";
-
-interface LoadingAndErrorProps {
-  loading: boolean;
-  error: Error | null;
-}
 
 const withLoadingAndError = <P extends object>(
   WrappedComponent: React.ComponentType<P>
@@ -18,21 +14,21 @@ const withLoadingAndError = <P extends object>(
 
     const handleError = (err: Error | null) => {
       setError(err);
+      if (err !== null) {
+        setTimeout(() => {
+          setError(null);
+        }, 2000);
+      }
     };
 
-    const loadingAndErrorProps: LoadingAndErrorProps = {
+    const loadingAndErrorProps: ILoadingAndErrorProps = {
       loading,
       error,
+      handleLoading,
+      handleError,
     };
 
-    return (
-      <WrappedComponent
-        {...props}
-        {...loadingAndErrorProps}
-        handleLoading={handleLoading}
-        handleError={handleError}
-      />
-    );
+    return <WrappedComponent {...props} {...loadingAndErrorProps} />;
   };
 
   return HOC;

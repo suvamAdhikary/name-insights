@@ -2,12 +2,12 @@
 
 import React, { FC, useState } from "react";
 import styles from "./ResultDisplay.module.css";
-import { Country } from "@/app/interfaces/common";
+import { ICountry } from "@/app/interfaces/common";
 
 interface ResultDisplayProps {
   age: number | null;
   gender: string | null;
-  country: Country[] | null;
+  country: ICountry[] | null;
   handleReset: () => void;
 }
 
